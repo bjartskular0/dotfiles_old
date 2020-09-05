@@ -1,0 +1,3 @@
+#!/bin/sh
+file=$(find ${HOME}/.wallpapers/* ! -name "*.sh" | sort -R | head -n 1)
+feh --no-fehbg --bg-fill "${file}"
