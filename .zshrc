@@ -27,6 +27,7 @@ WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider
 # Paths
 export GOPATH="${HOME}/go"
 export GOBIN="${GOPATH}/bin"
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 export PATH="${PATH}:${GOBIN}"
 export PATH="${PATH}:${HOME}/.cargo/bin"
 
