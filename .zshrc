@@ -27,7 +27,8 @@ WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider
 # Paths
 export GOPATH="${HOME}/go"
 export GOBIN="${GOPATH}/bin"
-PATH="${PATH}:${GOBIN}"
+export PATH="${PATH}:${GOBIN}"
+export PATH="${PATH}:${HOME}/.cargo/bin"
 
 ## Keybindings section
 bindkey -e
