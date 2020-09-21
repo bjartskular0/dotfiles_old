@@ -65,6 +65,7 @@ Plug 'elzr/vim-json'
 Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
 Plug 'preservim/nerdcommenter'
 Plug 'honza/vim-snippets' " Snippets are separated from the engine
+Plug 'peterhoeg/vim-qml'
 
 " UI junk
 Plug 'itchyny/lightline.vim'
@@ -80,7 +81,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 
 " Vim stuff
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround' "Allows me to change { to [ and what not
 Plug 'ludovicchabant/vim-gutentags' "Tags Generate
@@ -94,6 +95,9 @@ Plug 'fatih/molokai'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
+
+" Minor plugin settings
+let g:AutoPairsMapCh = 0
 
 let g:fern#renderer = "nerdfont"
 
