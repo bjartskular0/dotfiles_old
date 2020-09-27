@@ -12,6 +12,7 @@ setopt autocd                                                   # if only direct
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
 zstyle ':completion:*' rehash true                              # automatically find new executables in path 
+zstyle ':completion:*' special-dirs true
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
@@ -29,6 +30,7 @@ export GOPATH="${HOME}/go"
 export GOBIN="${GOPATH}/bin"
 export PATH="${PATH}:${GOBIN}"
 export PATH="${PATH}:${HOME}/.cargo/bin"
+export PATH="${PATH}:${HOME}/.local/custom/bin"
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 ## Keybindings section
@@ -63,10 +65,12 @@ alias cp="cp -i"                                                # Confirm before
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
 alias gitu='git add . && git commit && git push'
-alias ls='ls --color=auto'
+alias ls='ls --color=tty'
 alias l='ls -lh'
 alias ll='ls -lah'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias work='source work'
+alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 # Theming section  
 autoload -U compinit colors zcalc
