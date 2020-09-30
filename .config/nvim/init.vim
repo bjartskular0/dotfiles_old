@@ -342,6 +342,7 @@ function GoSettings()
 
   nmap <leader>r  <Plug>(go-run)
   nmap <leader>t  <Plug>(go-test)
+  nmap <leader>g  <Plug>(go-generate)
   nmap <Leader>c  <Plug>(go-coverage-toggle)
   nmap <leader>b  :<C-u>call <SID>build_go_files()<CR>
 
