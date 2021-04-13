@@ -25,14 +25,6 @@ export VISUAL=/usr/bin/nvim
 export TERM="xterm-256color"
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
-# Paths
-export GOPATH="${HOME}/go"
-export GOBIN="${GOPATH}/bin"
-export PATH="${PATH}:${GOBIN}"
-export PATH="${PATH}:${HOME}/.cargo/bin"
-export PATH="${PATH}:${HOME}/.local/custom/bin"
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-
 ## Keybindings section
 bindkey -e
 bindkey '^[[7~' beginning-of-line                               # Home key

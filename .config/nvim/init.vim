@@ -41,7 +41,6 @@ set foldcolumn=1
 set colorcolumn=140
 highlight ColorColumn ctermbg=darkgray
 
-
 call plug#begin('~/.local/share/nvim/site/plugged')
 " Completer
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -50,6 +49,15 @@ Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'sebastianmarkow/deoplete-rust'
 " Plug 'artur-shaik/vim-javacomplete2'
 " Plug 'uplus/deoplete-solargraph'
+
+" Python
+" Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+" Latex
+Plug 'lervag/vimtex'
+
 
 " Java
 " Use release branch (recommend)
@@ -62,9 +70,9 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json'
-Plug 'vim-scripts/indentpython.vim', { 'for': 'py' }
 Plug 'preservim/nerdcommenter'
 Plug 'honza/vim-snippets' " Snippets are separated from the engine
+Plug 'SirVer/ultisnips'
 Plug 'peterhoeg/vim-qml'
 
 " UI junk
@@ -305,7 +313,8 @@ let g:gutentags_generate_on_new = '1'
 let g:gutentags_generate_on_missing = '1'
 let g:gutentags_generate_on_write = '1'
 
-
+" Vimtex Settings
+let g:vimtex_compiler_method = 'tectonic'
 
 " #####################
 " # FILETYPE SETTINGS #
@@ -313,8 +322,10 @@ let g:gutentags_generate_on_write = '1'
 
 augroup filetypes
   autocmd!
-  autocmd FileType go call GoSettings()
   autocmd FileType sh call SHSettings()
+  autocmd FileType tex call TexSettings()
+  autocmd FileType go call GoSettings()
+  " autocmd Filetype py call PythonSettings()
   autocmd FileType java call JavaSettings()
 augroup END
 
@@ -330,6 +341,12 @@ function SHSettings()
   set smarttab
 endfunction
 
+function TexSettings()
+  if empty(v:servername) && exists('*remote_startserver')
+    call remote_startserver('VIM')
+  endif
+endfunction
+
 " ###############
 " # GO SETTINGS #
 " ###############
@@ -342,9 +359,11 @@ function GoSettings()
 
   nmap <leader>r  <Plug>(go-run)
   nmap <leader>t  <Plug>(go-test)
+  nmap <leader>i  <Plug>(go-imports)
   nmap <leader>g  <Plug>(go-generate)
   nmap <Leader>c  <Plug>(go-coverage-toggle)
   nmap <leader>b  :<C-u>call <SID>build_go_files()<CR>
+  nmap <F8>       :GoFmt<CR>
 
   " Utility settings
   let g:go_fmt_command = "goimports"
