@@ -156,6 +156,8 @@ nnoremap <C-l> zv
 noremap <leader>f :Fern . -drawer -toggle<CR>
 nmap <silent> ga <Plug>(coc-definition)
 
+autocmd VimEnter * inoremap <expr> <cr> ((pumvisible()) ? (deoplete#close_popup()) : ("\<cr>"))
+
 " noremap <A-h> <lt>gv
 " noremap <A-l> >gv
 
@@ -164,6 +166,7 @@ let g:deoplete#enable_at_startup = 1
 
 set completeopt+=noselect
 call deoplete#custom#option('omni_patterns', {
+      \ 'go': '[^. *\t]\.\w*',
       \})
 
 call deoplete#custom#option('sources', {
@@ -409,21 +412,19 @@ function JavaSettings()
   setlocal foldlevel=2
   setlocal foldcolumn=1
 
-  augroup javaSu
-    autocmd!
-    autocmd FileType java compiler javac
-    au Filetype java setlocal makeprg=javac\ %\ -g
-    au Filetype java setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
-    au FileType java noremap <buffer> <leader>8 :make<cr>:copen<cr>
-    au FileType java noremap <buffer> <leader>9 :!echo %\|awk -F. '{print $1}'\|xargs java<cr>
-  augroup END
+  compiler javac
+  setlocal makeprg=javac\ %\ -g
+  setlocal errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+  noremap <buffer> <leader>8 :make<cr>:copen<cr>
+  noremap <buffer> <leader>9 :!echo %\|awk -F. '{print $1}'\|xargs java<cr>
+  noremap <buffer> <leader>i :CocCommand java.action.organizeImports<cr>
 
   let g:coc_global_extensions = [
-	\ 'coc-java',
-	\ 'coc-snippets',
-	\ 'coc-java-debug',
-	\ 'coc-lists'
-	\ ]
+        \ 'coc-java',
+        \ 'coc-snippets',
+        \ 'coc-java-debug',
+        \ 'coc-lists'
+        \ ]
 endfunction
 
 if executable('rg')
