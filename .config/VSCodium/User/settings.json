@@ -18,7 +18,7 @@
     ],
     "jupyter.themeMatplotlibPlots": true,
     "jupyter.askForKernelRestart": false,
-    "vscode-neovim.neovimExecutablePaths.linux": "/home/bjartskular/Applications/nvim.appimage",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim.appimage",
     "latex-workshop.view.pdf.viewer": "tab",
     "latex-workshop.latex.recipes": [
       {
@@ -70,4 +70,11 @@
       },
     ],
     "latex-workshop.view.pdf.backgroundColor": "#000000",
+    "clangd.onConfigChanged": "restart",
+    "files.exclude": {
+      "**/.classpath": true,
+      "**/.project": true,
+      "**/.settings": true,
+      "**/.factorypath": true
+    },
 }
