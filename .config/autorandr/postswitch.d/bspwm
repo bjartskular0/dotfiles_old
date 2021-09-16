@@ -1,0 +1,73 @@
+#!/bin/bash
+
+function desktops_to_monitor() {
+  for desktop in "${@:2}"; do
+    bspc desktop "${desktop}" --to-monitor "$1"
+  done
+}
+
+curr="$AUTORANDR_CURRENT_PROFILE"
+
+if [[ "$curr" == "dp1" ]]; then
+  desktops_to_monitor LVDS1 1 2 5 6 7
+  desktops_to_monitor DP1 3 4 8 9 10
+elif [[ "$curr" == "dp1-left" ]]; then
+  desktops_to_monitor LVDS1 1 2 5 6 7
+  desktops_to_monitor DP1 3 4 8 9 10
+elif [[ "$curr" == "docked_dp2" ]]; then
+  desktops_to_monitor DP2 1 2 5 6 7
+  desktops_to_monitor LVDS1 3 4 8 9 10
+elif [[ "$curr" == "mobile-VGA" ]]; then
+  desktops_to_monitor VGA1 1 2 5 6 7
+  desktops_to_monitor LVDS1 3 4 8 9 10
+elif [[ "$curr" == "luddVGA" ]]; then
+  desktops_to_monitor LVDS1 1 2 5 6 7
+  desktops_to_monitor VGA1 3 4 8 9 10
+elif [[ "$curr" == "home-vga" ]]; then
+  desktops_to_monitor VGA1 1 2 5 6 7
+  desktops_to_monitor LVDS1 3 4 8 9 10
+elif [[ "$curr" == "docked_dp1_dp2" ]]; then
+  desktops_to_monitor DP2 1 2 3
+  desktops_to_monitor LVDS1 4 5 6
+  desktops_to_monitor DP1 7 8 9 10
+elif [[ "$curr" == "docked_closed" ]]; then
+  desktops_to_monitor DP2 $(seq 10)
+  bspc monitor DP2 -o $(seq 10)
+elif [[ "$curr" == "mobile" ]]; then
+  desktops_to_monitor LVDS1 $(seq 10) 
+  bspc monitor LVDS1 -o $(seq 10)
+elif [[ "$curr" == "workprofile" ]]; then
+  bspc monitor LVDS1 -a Desktop
+  desktops_to_monitor HDMI2 1 2 5 6 7
+  desktops_to_monitor HDMI3 3 4 8 9 10
+elif [[ "$curr" == "workprofile3_vga" ]]; then
+  bspc monitor LVDS1 -a Desktop
+  desktops_to_monitor VGA1 1 2 5 6 7
+  desktops_to_monitor HDMI2 3 4 8 9 10
+elif [[ "$curr" == "workprofile_dual" ]]; then
+  desktops_to_monitor LVDS1 1 2 5 6 7
+  desktops_to_monitor HDMI2 3 4 8 9 10
+else
+  readarray -t outputs <<< "$(xrandr | grep ' connected' | awk ' { print $1 } ')"
+  case ${#outputs[@]} in
+    1)
+      desktops_to_monitor ${outputs[0]} $(seq 10)
+      bspc monitor ${outputs[0]} -o $(seq 10)
+      ;;
+    2)
+      desktops_to_monitor ${outputs[0]} 1 2 5 6 7
+      desktops_to_monitor ${outputs[1]} 3 4 8 9 10
+      ;;
+  esac
+fi
+
+remove_desktops() {
+  for d in $(bspc query -D); do
+    local name=$(bspc query -d $d -D --names)
+    if [[ $name == "Desktop" ]]; then
+      bspc desktop $d --remove
+    fi
+  done
+}
+
+remove_desktops

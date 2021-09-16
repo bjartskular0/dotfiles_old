@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if ! multilockscreen -i "$AUTORANDR_CURRENT_PROFILE"; then
+  multilockscreen -u -o "$AUTORANDR_CURRENT_PROFILE"
+  multilockscreen -i "$AUTORANDR_CURRENT_PROFILE"
+fi
