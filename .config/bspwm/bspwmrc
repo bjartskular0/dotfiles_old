@@ -1,0 +1,46 @@
+#! /bin/sh
+
+function kill_delay() {
+  killall -q $1
+  while pgrep -u $UID -x $1 >/dev/null; do sleep 1; done
+}
+
+# key bindings
+kill_delay sxhkd
+SXHKD_SHELL="/bin/bash" sxhkd &
+
+# launch compton
+kill_delay picom
+picom &
+
+#wal -f $HOME/.wallpapers/clear_colorscheme_dark_1.1.0.json -s -n
+
+# wallpaper
+# ~/.wallpapers/fehbg
+
+desktops=$(bspc query -D --names)
+
+for d in $(seq 10); do
+  ! [[ $desktops =~ (^|[[:space:]])"$d"($|[[:space:]]) ]] && bspc monitor LVDS1 -a $d
+done
+
+bspc config remove_disabled_monitors	true
+bspc config remove_unplugged_monitors	true
+
+bspc config border_width         2
+bspc config window_gap		 6
+
+bspc config split_ratio          0.5
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a "Brave-browser"    desktop='1'
+bspc rule -a discord            desktop='8'
+bspc rule -a Spotify            desktop='9' # Spotify
+bspc rule -a spotify            desktop='9' # Spotify
+bspc rule -a ""                 desktop='9' # Spotify
+bspc rule -a TelegramDesktop    desktop='10'
+bspc rule -a Zathura            state=tiled
+
+autorandr -cf 
+#$HOME/.config/polybar/launch.sh &
