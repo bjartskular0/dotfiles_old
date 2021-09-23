@@ -125,7 +125,7 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
 
-## Added by Zinit's installer
+### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
   command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
@@ -150,7 +150,7 @@ zinit light-mode for \
   zdharma/fast-syntax-highlighting \
   zsh-users/zsh-history-substring-search
 
-# End of Zinit's installer chunk
+### End of Zinit's installer chunk
 
 # Theme
 zinit ice depth=1
@@ -178,7 +178,7 @@ zinit light MichaelAquilina/zsh-autoswitch-virtualenv
 
 # Download powerlevel10k prompt config
 if [[ ! -f ~/.p10k.zsh ]]; then
-  curl -o ~/.p10k.zsh https://raw.githubusercontent.com/EmilyBjartskular/dotfiles/master/.p10k.zsh
+  command curl -o ~/.p10k.zsh https://raw.githubusercontent.com/EmilyBjartskular/dotfiles/master/.p10k.zsh
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
