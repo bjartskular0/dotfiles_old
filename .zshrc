@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+
 ## Options section
 #setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
@@ -123,7 +125,7 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
 
-### Added by Zinit's installer
+## Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
   command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
@@ -148,7 +150,7 @@ zinit light-mode for \
   zdharma/fast-syntax-highlighting \
   zsh-users/zsh-history-substring-search
 
-### End of Zinit's installer chunk
+# End of Zinit's installer chunk
 
 # Theme
 zinit ice depth=1
@@ -164,7 +166,22 @@ bindkey '^[[B' history-substring-search-down
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
-source /usr/share/nvm/init-nvm.sh
+# Nvm
+export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
+export NVM_COMPLETION=true
+zinit light EmilyBjartskular/zsh-nvm
+#source /usr/share/nvm/init-nvm.sh
+
+# Virtualenv
+zinit light MichaelAquilina/zsh-autoswitch-virtualenv
+
+# Download powerlevel10k prompt config
+if [[ ! -f ~/.p10k.zsh ]]; then
+  curl -o ~/.p10k.zsh https://raw.githubusercontent.com/EmilyBjartskular/dotfiles/master/.p10k.zsh
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#zprof > "profiling/profile$(ls profiling | wc -l)"
