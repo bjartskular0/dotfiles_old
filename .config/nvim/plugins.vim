@@ -14,6 +14,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'mattn/emmet-vim'
 Plug 'cespare/vim-toml'
 Plug 'elzr/vim-json'
+Plug 'cmcaine/vim-uci'
 
 " UI junk
 Plug 'itchyny/lightline.vim'
@@ -33,6 +34,7 @@ Plug 'mhinz/vim-signify'
 " Plug 'vimwiki/vimwiki'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-surround' "Allows me to change { to [ and what not
+Plug 'tpope/vim-commentary'
 Plug 'ludovicchabant/vim-gutentags' "Tags Generate
 " You might want to look at
 Plug 'wellle/targets.vim' "adds more targets like [ or ,

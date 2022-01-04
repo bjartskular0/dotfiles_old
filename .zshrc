@@ -63,7 +63,7 @@ alias gitu='git add . && git commit && git push'
 alias ls='ls --color=tty'
 alias l='ls -lh'
 alias ll='ls -lah'
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 alias work='source work'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
@@ -125,16 +125,18 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+# zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+### Install zinit if not installed
+if [[ ! -d "$ZINIT_HOME" ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-  command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-  command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+  command mkdir -p "$(dirname $ZINIT_HOME)"
+  command git clone https://github.com/zdharma-continuum/zinit "$ZINIT_HOME" && \
     print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
     print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
-source "$HOME/.zinit/bin/zinit.zsh"
+source "${ZINIT_HOME}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -142,12 +144,12 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-  zinit-zsh/z-a-rust \
-  zinit-zsh/z-a-as-monitor \
-  zinit-zsh/z-a-patch-dl \
-  zinit-zsh/z-a-bin-gem-node \
+  zdharma-continuum/zinit-annex-as-monitor \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust \
+  zdharma-continuum/fast-syntax-highlighting \
   zsh-users/zsh-autosuggestions \
-  zdharma/fast-syntax-highlighting \
   zsh-users/zsh-history-substring-search
 
 ### End of Zinit's installer chunk
